@@ -1,4 +1,4 @@
-# Vite+Vue3+Electron+Typescript template
+# Gitmoji - Desktop app
 
 ## Get Started
 
