@@ -1,7 +1,5 @@
 # Vite+Vue3+Electron+Typescript template
 
-![screenshot](./src/assets/screenshot.png)
-
 ## Get Started
 
 ### 1. clone this repository
