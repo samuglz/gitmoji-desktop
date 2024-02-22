@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import { gitmojis } from './assets/gitmojis.schema'
+import { Gitmoji, gitmojis } from './assets/gitmojis.schema'
 
 const inputValue = ref<string>('')
 
@@ -9,6 +9,10 @@ const filteredGitmojis = computed(() => {
     return gitmoji.code.includes(inputValue.value) || gitmoji.description.includes(inputValue.value)
   })
 })
+
+const copyToClipboard = async (gitmoji: Gitmoji) => {
+  await navigator.clipboard.writeText(gitmoji.emoji)
+}
 
 watch(
   () => inputValue.value,
@@ -41,6 +45,8 @@ watch(
         v-for="gitmoji in filteredGitmojis"
         :key="gitmoji.name"
         class="w-full bg-neutral-600 px-2 py-4 text-xl text-neutral-400 hover:bg-neutral-700 focus:border-neutral-500 focus:bg-neutral-700 focus:outline-none"
+        @click="copyToClipboard(gitmoji)"
+        @keydown.enter.prevent="copyToClipboard(gitmoji)"
       >
         <span class="line-clamp-1 flex items-center justify-start gap-3">
           <span>{{ gitmoji.emoji }}</span>

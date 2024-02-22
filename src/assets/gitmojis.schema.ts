@@ -1,4 +1,4 @@
-type Gitmoji = {
+export type Gitmoji = {
   emoji: string
   entity: string
   code: string
