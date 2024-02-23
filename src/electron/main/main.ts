@@ -1,5 +1,5 @@
 import { join } from 'path'
-import { app, BrowserWindow, ipcMain, dialog, Tray, Menu, nativeImage } from 'electron'
+import { app, BrowserWindow, ipcMain, dialog, Tray, Menu, nativeImage, globalShortcut } from 'electron'
 
 const isDev = process.env.npm_lifecycle_event === 'app:dev'
 
@@ -74,6 +74,10 @@ app.whenReady().then(() => {
   appIcon.setToolTip('Gitmoji Desktop App')
   appIcon.setContextMenu(contextMenu)
 
+  globalShortcut.register('Alt+G', () => {
+    mainWindow.show()
+  })
+
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
@@ -88,4 +92,12 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
+})
+
+app.on('browser-window-blur', () => {
+  mainWindow.hide()
+})
+
+app.on('will-quit', () => {
+  globalShortcut.unregisterAll()
 })
