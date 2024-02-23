@@ -1,7 +1,9 @@
 import { join } from 'path'
-import { app, BrowserWindow, ipcMain, dialog } from 'electron'
+import { app, BrowserWindow, ipcMain, dialog, Tray, Menu, nativeImage } from 'electron'
 
-const isDev = process.env.npm_lifecycle_event === 'app:dev' ? true : false
+const isDev = process.env.npm_lifecycle_event === 'app:dev'
+
+let mainWindow: BrowserWindow
 
 async function handleFileOpen() {
   const { canceled, filePaths } = await dialog.showOpenDialog({ title: 'Open File' })
@@ -13,6 +15,8 @@ async function handleFileOpen() {
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
+    resizable: false,
+    maximizable: false,
     width: 800,
     height: 64,
     transparent: true,
@@ -20,6 +24,11 @@ function createWindow() {
     webPreferences: {
       preload: join(__dirname, '../preload/preload.js')
     }
+  })
+
+  mainWindow.on('minimize', function (event: any) {
+    event.preventDefault()
+    mainWindow.hide()
   })
 
   // and load the index.html of the app.
@@ -34,6 +43,8 @@ function createWindow() {
   //     'http://localhost:3000' :
   //     join(__dirname, '../../index.html')
   // );
+
+  return mainWindow
 }
 
 // This method will be called when Electron has finished
@@ -41,7 +52,27 @@ function createWindow() {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   ipcMain.handle('dialog:openFile', handleFileOpen)
-  createWindow()
+  const image = nativeImage.createFromPath(join(__dirname, 'gitmoji.ico'))
+  const appIcon = new Tray(image)
+  mainWindow = createWindow()
+
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'Show App',
+      click: function () {
+        mainWindow.show()
+      }
+    },
+    {
+      label: 'Quit',
+      click: function () {
+        app.quit()
+      }
+    }
+  ])
+  appIcon.setToolTip('Electron Tray Application')
+  appIcon.setContextMenu(contextMenu)
+
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
