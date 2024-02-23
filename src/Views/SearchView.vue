@@ -2,10 +2,12 @@
 import { computed, ref, watch, onMounted } from 'vue'
 import { Gitmoji, gitmojis } from '../assets/gitmojis.schema'
 import { useRouter } from 'vue-router'
+import { usePreferences } from '../store/preferences'
 
 const inputValue = ref<string>('')
 const searchInput = ref<HTMLInputElement | null>()
 const router = useRouter()
+const preferencesStore = usePreferences()
 
 const filteredGitmojis = computed(() => {
   return gitmojis.filter((gitmoji) => {
@@ -16,6 +18,10 @@ const filteredGitmojis = computed(() => {
 onMounted(() => {
   searchInput.value?.focus()
   window.resizeTo(800, 64)
+  if (!window.localStorage.getItem('openShortcut')) {
+    window.localStorage.setItem('openShortcut', 'Alt+G')
+  }
+  preferencesStore.getOpenShortCut()
 })
 
 const copyToClipboard = async (gitmoji: Gitmoji) => {
@@ -90,5 +96,3 @@ watch(
     </div>
   </div>
 </template>
-
-<style scoped></style>

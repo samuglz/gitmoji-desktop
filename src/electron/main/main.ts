@@ -19,7 +19,7 @@ function createWindow() {
     width: 800,
     height: 64,
     transparent: true,
-    skipTaskbar: true,
+    skipTaskbar: false,
     frame: false,
     webPreferences: {
       preload: join(__dirname, '../preload/preload.js')
@@ -34,7 +34,7 @@ function createWindow() {
   // and load the index.html of the app.
   if (isDev) {
     mainWindow.loadURL('http://localhost:3000') // Open the DevTools.
-    // mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools()
   } else {
     mainWindow.loadFile(join(__dirname, '../../index.html'))
   }
@@ -95,9 +95,9 @@ app.on('window-all-closed', () => {
   }
 })
 
-app.on('browser-window-blur', () => {
-  mainWindow.minimize()
-})
+// app.on('browser-window-blur', () => {
+//   mainWindow.minimize()
+// })
 
 app.on('will-quit', () => {
   globalShortcut.unregisterAll()
