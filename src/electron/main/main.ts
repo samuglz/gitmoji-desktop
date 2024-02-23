@@ -74,6 +74,9 @@ app.whenReady().then(() => {
   globalShortcut.register('Alt+G', () => {
     mainWindow.show()
   })
+  globalShortcut.register('esc', () => {
+    mainWindow.hide()
+  })
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
