@@ -1,12 +1,14 @@
 import { join } from 'path'
 import { app, BrowserWindow, ipcMain, Tray, Menu, nativeImage, globalShortcut } from 'electron'
+import { Key, keyboard } from '@nut-tree/nut-js'
 
 const isDev = process.env.npm_lifecycle_event === 'app:dev'
 
 let mainWindow: BrowserWindow
 
-const handleSelectGitmoji = () => {
+const handleSelectGitmoji = async () => {
   mainWindow.minimize()
+  await keyboard.type(Key.LeftControl, Key.V)
 }
 
 function createWindow() {
@@ -44,7 +46,6 @@ function createWindow() {
 
   return mainWindow
 }
-
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
