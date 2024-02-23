@@ -1,15 +1,12 @@
 import { join } from 'path'
-import { app, BrowserWindow, ipcMain, dialog, Tray, Menu, nativeImage, globalShortcut } from 'electron'
+import { app, BrowserWindow, ipcMain, Tray, Menu, nativeImage, globalShortcut } from 'electron'
 
 const isDev = process.env.npm_lifecycle_event === 'app:dev'
 
 let mainWindow: BrowserWindow
 
-async function handleFileOpen() {
-  const { canceled, filePaths } = await dialog.showOpenDialog({ title: 'Open File' })
-  if (!canceled) {
-    return filePaths[0]
-  }
+const handleSelectGitmoji = () => {
+  mainWindow.hide()
 }
 
 function createWindow() {
@@ -52,7 +49,7 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-  ipcMain.handle('dialog:openFile', handleFileOpen)
+  ipcMain.handle('gitmoji:select', handleSelectGitmoji)
   const image = nativeImage.createFromPath(join(__dirname, 'gitmoji.ico'))
   const appIcon = new Tray(image)
   mainWindow = createWindow()

@@ -12,6 +12,9 @@ const filteredGitmojis = computed(() => {
 
 const copyToClipboard = async (gitmoji: Gitmoji) => {
   await navigator.clipboard.writeText(gitmoji.emoji)
+  //@ts-ignore
+  window.electronAPI.selectGitmoji()
+  inputValue.value = ''
 }
 
 watch(
