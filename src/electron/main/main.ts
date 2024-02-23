@@ -20,6 +20,7 @@ function createWindow() {
     width: 800,
     height: 64,
     transparent: true,
+    skipTaskbar: true,
     frame: false,
     webPreferences: {
       preload: join(__dirname, '../preload/preload.js')
@@ -70,7 +71,7 @@ app.whenReady().then(() => {
       }
     }
   ])
-  appIcon.setToolTip('Electron Tray Application')
+  appIcon.setToolTip('Gitmoji Desktop App')
   appIcon.setContextMenu(contextMenu)
 
   app.on('activate', function () {
