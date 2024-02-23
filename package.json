@@ -50,6 +50,7 @@
     }
   },
   "dependencies": {
+    "@nut-tree/nut-js": "3.1.2",
     "vue": "3.4.15"
   },
   "devDependencies": {
