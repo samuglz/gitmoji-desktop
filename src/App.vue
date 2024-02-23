@@ -3,6 +3,7 @@ import { computed, ref, watch } from 'vue'
 import { Gitmoji, gitmojis } from './assets/gitmojis.schema'
 
 const inputValue = ref<string>('')
+const searchInput = ref<HTMLInputElement | null>()
 
 const filteredGitmojis = computed(() => {
   return gitmojis.filter((gitmoji) => {
@@ -15,6 +16,7 @@ const copyToClipboard = async (gitmoji: Gitmoji) => {
   //@ts-ignore
   window.electronAPI.selectGitmoji()
   inputValue.value = ''
+  searchInput.value?.focus()
 }
 
 watch(
@@ -30,6 +32,7 @@ watch(
 <template>
   <div id="container">
     <input
+      ref="searchInput"
       v-model="inputValue"
       autofocus
       type="text"
