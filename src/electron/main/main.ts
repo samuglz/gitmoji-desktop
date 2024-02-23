@@ -6,7 +6,7 @@ const isDev = process.env.npm_lifecycle_event === 'app:dev'
 let mainWindow: BrowserWindow
 
 const handleSelectGitmoji = () => {
-  mainWindow.hide()
+  mainWindow.minimize()
 }
 
 function createWindow() {
@@ -26,7 +26,7 @@ function createWindow() {
 
   mainWindow.on('minimize', function (event: any) {
     event.preventDefault()
-    mainWindow.hide()
+    mainWindow.minimize()
   })
 
   // and load the index.html of the app.
@@ -75,7 +75,7 @@ app.whenReady().then(() => {
     mainWindow.show()
   })
   globalShortcut.register('esc', () => {
-    mainWindow.hide()
+    mainWindow.minimize()
   })
 
   app.on('activate', function () {
@@ -95,7 +95,7 @@ app.on('window-all-closed', () => {
 })
 
 app.on('browser-window-blur', () => {
-  mainWindow.hide()
+  mainWindow.minimize()
 })
 
 app.on('will-quit', () => {
