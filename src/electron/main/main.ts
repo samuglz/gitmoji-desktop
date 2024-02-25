@@ -11,6 +11,24 @@ const handleSelectGitmoji = async () => {
   await keyboard.type(Key.LeftControl, Key.V)
 }
 
+const setEscapeShortcut = (window: BrowserWindow) => {
+  globalShortcut.register('esc', () => {
+    window.minimize()
+  })
+}
+
+const setGlobalShortcuts = (mainWindow: BrowserWindow, shortcut: string) => {
+  globalShortcut.unregisterAll()
+  globalShortcut.register(shortcut, () => {
+    mainWindow.show()
+  })
+  setEscapeShortcut(mainWindow)
+}
+
+const handleSetShortcut = async (shortcut: string) => {
+  setGlobalShortcuts(mainWindow, shortcut)
+}
+
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -51,6 +69,9 @@ function createWindow() {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   ipcMain.handle('gitmoji:select', handleSelectGitmoji)
+  ipcMain.handle('set:shortcut', async (_event, shortcut) => {
+    await handleSetShortcut(shortcut)
+  })
   const image = nativeImage.createFromPath(join(__dirname, '../../../public/gitmoji.ico'))
   const appIcon = new Tray(image)
   mainWindow = createWindow()
@@ -71,13 +92,6 @@ app.whenReady().then(() => {
   ])
   appIcon.setToolTip('Gitmoji Desktop App')
   appIcon.setContextMenu(contextMenu)
-
-  globalShortcut.register('Alt+G', () => {
-    mainWindow.show()
-  })
-  globalShortcut.register('esc', () => {
-    mainWindow.minimize()
-  })
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the

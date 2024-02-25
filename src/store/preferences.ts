@@ -13,6 +13,8 @@ export const usePreferences = defineStore({
     setShortCut(shortCut: string) {
       this.openShortCut = shortCut
       window.localStorage.setItem('openShortcut', shortCut)
+      //@ts-ignore
+      window.electronAPI.setShortcut(shortCut)
     }
   }
 })

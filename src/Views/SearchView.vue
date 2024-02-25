@@ -22,6 +22,8 @@ onMounted(() => {
     window.localStorage.setItem('openShortcut', 'Alt+G')
   }
   preferencesStore.getOpenShortCut()
+  //@ts-ignore
+  window.electronAPI.setShortcut(preferencesStore.openShortCut)
 })
 
 const copyToClipboard = async (gitmoji: Gitmoji) => {

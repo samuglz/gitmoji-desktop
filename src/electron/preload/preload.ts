@@ -13,5 +13,6 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 contextBridge.exposeInMainWorld('electronAPI', {
-  selectGitmoji: () => ipcRenderer.invoke('gitmoji:select')
+  selectGitmoji: () => ipcRenderer.invoke('gitmoji:select'),
+  setShortcut: (shortcut: string) => ipcRenderer.invoke('set:shortcut', shortcut)
 })
