@@ -2,7 +2,7 @@
   "name": "gitmoji-desktop-app",
   "private": true,
   "version": "0.0.1",
-  "author": "Your Name",
+  "author": "samuglz",
   "main": "dist/electron/main/main.js",
   "scripts": {
     "vite:dev": "vite",
