@@ -51,7 +51,7 @@ function createWindow() {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   ipcMain.handle('gitmoji:select', handleSelectGitmoji)
-  const image = nativeImage.createFromPath(join(__dirname, 'gitmoji.ico'))
+  const image = nativeImage.createFromPath(join(__dirname, '../../../public/gitmoji.ico'))
   const appIcon = new Tray(image)
   mainWindow = createWindow()
 
