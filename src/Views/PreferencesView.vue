@@ -83,18 +83,8 @@ const handleCancel = () => {
     <div class="mt-4">
       <span>Complete gitmoji as: </span>
       <select v-model="completeType" class="w-40 px-1 text-black focus:outline-none">
-        <option
-          :selected="preferencesStore.completeType === CompleteType.CODE"
-          :value="CompleteType.CODE"
-        >
-          Code (:Sparkles:)
-        </option>
-        <option
-          :selected="preferencesStore.completeType === CompleteType.UNICODE"
-          :value="CompleteType.UNICODE"
-        >
-          Unicode (✨)
-        </option>
+        <option :value="CompleteType.CODE">Code (:Sparkles:)</option>
+        <option :value="CompleteType.UNICODE">Unicode (✨)</option>
       </select>
     </div>
     <div class="absolute bottom-0 left-0 flex w-full items-center justify-end gap-4 p-4">
