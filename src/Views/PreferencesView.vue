@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { usePreferences } from '../store/preferences'
 import { useRouter } from 'vue-router'
+import { CompleteType } from '../store/types'
 
 const shortcutInput = ref('')
 const shortcut = ref<HTMLInputElement | null>()
@@ -10,6 +11,7 @@ const ForbidenKeys = ['Alt', 'Control', 'Shift', 'Meta', 'Tab', ' ', 'Backspace'
 const preferencesStore = usePreferences()
 const currentShortcut = ref<string[]>(['Alt'])
 const router = useRouter()
+const completeType = ref<CompleteType>(preferencesStore.completeType)
 
 onMounted(() => {
   window.resizeTo(800, 400)
@@ -38,6 +40,7 @@ const handleBlur = () => {
 
 const handleSave = () => {
   preferencesStore.setShortCut(currentShortcut.value.join('+'))
+  preferencesStore.setCompleteType(completeType.value)
   router.push('/')
 }
 
@@ -76,6 +79,23 @@ const handleCancel = () => {
           @blur="handleBlur"
         />
       </div>
+    </div>
+    <div class="mt-4">
+      <span>Complete gitmoji as: </span>
+      <select v-model="completeType" class="w-40 px-1 text-black focus:outline-none">
+        <option
+          :selected="preferencesStore.completeType === CompleteType.CODE"
+          :value="CompleteType.CODE"
+        >
+          Code (:Sparkles:)
+        </option>
+        <option
+          :selected="preferencesStore.completeType === CompleteType.UNICODE"
+          :value="CompleteType.UNICODE"
+        >
+          Unicode (✨)
+        </option>
+      </select>
     </div>
     <div class="absolute bottom-0 left-0 flex w-full items-center justify-end gap-4 p-4">
       <button @click="handleSave">Save</button>

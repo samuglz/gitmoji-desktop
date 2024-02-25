@@ -3,6 +3,7 @@ import { computed, ref, watch, onMounted } from 'vue'
 import { Gitmoji, gitmojis } from '../assets/gitmojis.schema'
 import { useRouter } from 'vue-router'
 import { usePreferences } from '../store/preferences'
+import { CompleteType } from '../store/types'
 
 const inputValue = ref<string>('')
 const searchInput = ref<HTMLInputElement | null>()
@@ -21,13 +22,21 @@ onMounted(() => {
   if (!window.localStorage.getItem('openShortcut')) {
     window.localStorage.setItem('openShortcut', 'Alt+G')
   }
+  if (!window.localStorage.getItem('completeType')) {
+    window.localStorage.setItem('completeType', CompleteType.CODE)
+  }
   preferencesStore.getOpenShortCut()
+  preferencesStore.getCompleteType()
   //@ts-ignore
   window.electronAPI.setShortcut(preferencesStore.openShortCut)
 })
 
 const copyToClipboard = async (gitmoji: Gitmoji) => {
-  await navigator.clipboard.writeText(gitmoji.emoji)
+  if (preferencesStore.completeType === CompleteType.CODE) {
+    await navigator.clipboard.writeText(gitmoji.code)
+  } else {
+    await navigator.clipboard.writeText(gitmoji.emoji)
+  }
   //@ts-ignore
   window.electronAPI.selectGitmoji()
   inputValue.value = ''
