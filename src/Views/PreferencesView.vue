@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue'
 import { usePreferences } from '../store/preferences'
 import { useRouter } from 'vue-router'
 import { CompleteType } from '../store/types'
+import packagejson from '../../package.json'
 
 const shortcutInput = ref('')
 const shortcut = ref<HTMLInputElement | null>()
@@ -51,7 +52,10 @@ const handleCancel = () => {
 
 <template>
   <div class="h-dvh rounded bg-neutral-800 p-2 text-white">
-    <h1 class="text-3xl">User preferences</h1>
+    <div class="flex justify-between">
+      <h1 class="text-3xl">User preferences</h1>
+      <span>v{{ packagejson.version }}</span>
+    </div>
     <div class="mt-2">
       <div>Open shortcut:</div>
       <div class="flex items-center gap-2">
