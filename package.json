@@ -1,7 +1,7 @@
 {
   "name": "gitmoji-desktop-app",
   "private": true,
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "samuglz",
   "main": "dist/electron/main/main.js",
   "repository": "https://github.com/samuglz/gitmoji-desktop",
