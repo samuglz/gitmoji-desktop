@@ -119,6 +119,11 @@ app.on('window-all-closed', () => {
   }
 })
 
+app.setLoginItemSettings({
+  openAtLogin: true,
+  args: ['--hidden']
+})
+
 app.on('browser-window-blur', () => {
   mainWindow.minimize()
 })
