@@ -50,7 +50,7 @@ const handleCancel = () => {
 </script>
 
 <template>
-  <div class="h-dvh rounded bg-neutral-600 p-2 text-white">
+  <div class="h-dvh rounded bg-neutral-800 p-2 text-white">
     <h1 class="text-3xl">User preferences</h1>
     <div class="mt-2">
       <div>Open shortcut:</div>

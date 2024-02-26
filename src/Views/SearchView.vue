@@ -4,6 +4,8 @@ import { Gitmoji, gitmojis } from '../assets/gitmojis.schema'
 import { useRouter } from 'vue-router'
 import { usePreferences } from '../store/preferences'
 import { CompleteType } from '../store/types'
+import SvgIcon from '@jamescoyle/vue-icon'
+import { mdiCog } from '@mdi/js'
 
 const inputValue = ref<string>('')
 const searchInput = ref<HTMLInputElement | null>()
@@ -67,21 +69,21 @@ watch(
         autofocus
         type="text"
         placeholder="Search for a gitmoji..."
-        class="h-16 w-full rounded-tl-2xl border-l-2 border-r-2 border-t-2 border-solid border-l-neutral-500 border-r-neutral-500 border-t-neutral-500 bg-neutral-600 px-2 text-3xl text-neutral-400 focus:outline-none"
+        class="h-16 w-full rounded-tl-2xl border-l-2 border-r-2 border-t-2 border-solid border-l-neutral-500 border-r-neutral-500 border-t-neutral-500 bg-neutral-800 px-2 text-3xl text-neutral-300 focus:outline-none"
         :class="{
           'rounded-bl-2xl border-b-2 border-b-neutral-500': !inputValue,
           'border-b-2 border-b-neutral-500': inputValue
         }"
       />
       <div
-        class="flex h-16 cursor-pointer items-center justify-center rounded-tr-2xl border-r-2 border-t-2 border-solid border-r-neutral-500 border-t-neutral-500 bg-neutral-600 px-2 text-neutral-400"
+        class="flex h-16 cursor-pointer items-center justify-center rounded-tr-2xl border-r-2 border-t-2 border-solid border-r-neutral-500 border-t-neutral-500 bg-neutral-800 px-2 text-neutral-300"
         :class="{
           'rounded-br-2xl border-b-2 border-b-neutral-500': !inputValue,
           'border-b-2 border-b-neutral-500': inputValue
         }"
         @click="handlePreferences"
       >
-        Preferences
+        <svg-icon type="mdi" :path="mdiCog"></svg-icon>
       </div>
     </div>
     <div
@@ -91,7 +93,7 @@ watch(
       <button
         v-for="gitmoji in filteredGitmojis"
         :key="gitmoji.name"
-        class="w-full bg-neutral-600 px-2 py-4 text-xl text-neutral-400 hover:bg-neutral-700 focus:border-neutral-500 focus:bg-neutral-700 focus:outline-none"
+        class="w-full bg-neutral-800 px-2 py-4 text-xl text-neutral-300 hover:bg-neutral-700 focus:border-neutral-500 focus:bg-neutral-700 focus:outline-none"
         @click="copyToClipboard(gitmoji)"
         @keydown.enter.prevent="copyToClipboard(gitmoji)"
       >
@@ -101,8 +103,8 @@ watch(
           <span>{{ gitmoji.description }}</span>
         </span>
       </button>
-      <div v-if="!filteredGitmojis.length" class="w-full bg-neutral-600">
-        <div class="px-2 py-4 text-xl text-neutral-400">No gitmoji found</div>
+      <div v-if="!filteredGitmojis.length" class="w-full bg-neutral-800">
+        <div class="px-2 py-4 text-xl text-neutral-300">No gitmoji found</div>
       </div>
     </div>
   </div>
@@ -110,7 +112,7 @@ watch(
 
 <style scoped>
 ::-webkit-scrollbar {
-  @apply w-2 bg-neutral-600;
+  @apply w-2 bg-neutral-800;
 }
 
 ::-webkit-scrollbar-track {
@@ -119,7 +121,7 @@ watch(
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-neutral-400;
+  @apply bg-neutral-300;
   border-radius: 5px;
 }
 </style>
