@@ -28,7 +28,8 @@
       "output": "release/${version}"
     },
     "files": [
-      "dist"
+      "dist",
+      "./public/**/*"
     ],
     "mac": {
       "artifactName": "${productName}_${version}.${ext}",
@@ -45,7 +46,8 @@
           ]
         }
       ],
-      "artifactName": "${productName}_${version}.${ext}"
+      "artifactName": "${productName}_${version}.${ext}",
+      "icon": "./public/gitmoji.png"
     },
     "nsis": {
       "oneClick": false,
