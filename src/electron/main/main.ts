@@ -1,10 +1,14 @@
 import { join } from 'path'
 import { app, BrowserWindow, ipcMain, Tray, Menu, nativeImage, globalShortcut } from 'electron'
 import { Key, keyboard } from '@nut-tree/nut-js'
+import { autoUpdater } from 'electron-updater'
 
 const isDev = process.env.npm_lifecycle_event === 'app:dev'
 
 let mainWindow: BrowserWindow
+
+autoUpdater.autoInstallOnAppQuit = true
+autoUpdater.autoDownload = false
 
 const handleSelectGitmoji = async () => {
   mainWindow.minimize()
@@ -98,6 +102,12 @@ app.whenReady().then(() => {
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
+
+  autoUpdater.checkForUpdates()
+})
+
+autoUpdater.on('update-available', () => {
+  autoUpdater.downloadUpdate()
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common

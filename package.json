@@ -1,9 +1,14 @@
 {
   "name": "gitmoji-desktop-app",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "samuglz",
   "main": "dist/electron/main/main.js",
+  "repository": "https://github.com/samuglz/gitmoji-desktop",
+  "publish": {
+    "provider": "github",
+    "releaseType": "release"
+  },
   "scripts": {
     "vite:dev": "vite",
     "vite:build": "vue-tsc --noEmit && vite build",
@@ -16,7 +21,7 @@
     "app:preview": "npm run vite:build && tsc && electron ."
   },
   "build": {
-    "appId": "YourAppID",
+    "appId": "com.samuglz.gitmoji-desktop-app",
     "asar": true,
     "directories": {
       "buildResources": "assets",
@@ -51,6 +56,7 @@
   },
   "dependencies": {
     "@nut-tree/nut-js": "4.0.0",
+    "electron-updater": "6.1.8",
     "vue": "3.4.19"
   },
   "devDependencies": {
