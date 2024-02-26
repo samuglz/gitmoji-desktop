@@ -107,3 +107,19 @@ watch(
     </div>
   </div>
 </template>
+
+<style scoped>
+::-webkit-scrollbar {
+  @apply w-2 bg-neutral-600;
+}
+
+::-webkit-scrollbar-track {
+  background: #888;
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-neutral-400;
+  border-radius: 5px;
+}
+</style>
