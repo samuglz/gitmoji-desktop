@@ -79,6 +79,7 @@ app.whenReady().then(() => {
   const image = nativeImage.createFromPath(join(__dirname, '../../../public/gitmoji.ico'))
   const appIcon = new Tray(image)
   mainWindow = createWindow()
+  mainWindow.minimize()
 
   const contextMenu = Menu.buildFromTemplate([
     {
