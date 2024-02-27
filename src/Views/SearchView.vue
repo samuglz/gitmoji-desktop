@@ -14,7 +14,10 @@ const preferencesStore = usePreferences()
 
 const filteredGitmojis = computed(() => {
   return gitmojis.filter((gitmoji) => {
-    return gitmoji.code.includes(inputValue.value) || gitmoji.description.includes(inputValue.value)
+    return (
+      gitmoji.code.toLowerCase().includes(inputValue.value.toLowerCase()) ||
+      gitmoji.description.toLowerCase().includes(inputValue.value.toLowerCase())
+    )
   })
 })
 
