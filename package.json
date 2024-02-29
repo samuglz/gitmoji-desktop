@@ -61,6 +61,7 @@
     "@mdi/js": "7.4.47",
     "@nut-tree/nut-js": "4.0.0",
     "electron-updater": "6.1.8",
+    "qhotkeys": "1.0.15",
     "vue": "3.4.19"
   },
   "devDependencies": {
