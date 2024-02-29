@@ -2,6 +2,9 @@ import { join } from 'path'
 import { app, BrowserWindow, ipcMain, Tray, Menu, nativeImage, globalShortcut } from 'electron'
 import { Key, keyboard } from '@nut-tree/nut-js'
 import { autoUpdater } from 'electron-updater'
+import {qHotkeys, qKeys} from 'qhotkeys'
+
+const hotkeys = new qHotkeys()
 
 const isDev = process.env.npm_lifecycle_event === 'app:dev'
 
@@ -16,7 +19,7 @@ const handleSelectGitmoji = async () => {
 }
 
 const setEscapeShortcut = (window: BrowserWindow) => {
-  globalShortcut.register('esc', () => {
+  hotkeys.register([qKeys.Escape], () => {
     window.minimize()
   })
 }
@@ -104,6 +107,8 @@ app.whenReady().then(() => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
 
+  hotkeys.run()
+
   autoUpdater.checkForUpdates()
 })
 
@@ -130,5 +135,6 @@ app.on('browser-window-blur', () => {
 })
 
 app.on('will-quit', () => {
+  hotkeys.stop()
   globalShortcut.unregisterAll()
 })
